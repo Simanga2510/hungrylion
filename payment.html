@@ -2,53 +2,79 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment Gateway</title>
+
     <style>
       body {
         font-family: Arial, sans-serif;
         background: #fffaf0;
-        text-align: center;
-        padding: 40px;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
       }
 
       h1 {
         color: #d62828;
+        font-size: 24px;
+        margin-bottom: 10px;
       }
 
       .box {
-        max-width: 400px;
-        margin: auto;
+        width: 100%;
+        max-width: 420px;
         background: white;
         padding: 20px;
-        border-radius: 12px;
+        border-radius: 14px;
         border: 2px solid #fcbf49;
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
       }
 
+      p {
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      /* =====================
+         PAYMENT METHODS
+      ====================== */
       .method {
-        padding: 12px;
+        padding: 14px;
         margin: 10px 0;
-        border-radius: 8px;
+        border-radius: 10px;
         background: #fff3e0;
         font-weight: bold;
         cursor: pointer;
+        border: 2px solid transparent;
         transition: 0.2s;
+        text-align: center;
       }
 
       .method:hover {
         background: #ffe0b2;
       }
 
+      .method.active {
+        border: 2px solid #d62828;
+        background: #ffd7c2;
+      }
+
+      /* =====================
+         BUTTON (NO OPACITY)
+      ====================== */
       .pay-btn {
         margin-top: 20px;
-        padding: 10px;
+        padding: 12px;
         width: 100%;
         border: none;
         background: #d62828;
         color: white;
         font-weight: bold;
-        border-radius: 8px;
+        border-radius: 10px;
         cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
       }
 
       .pay-btn:hover {
@@ -59,29 +85,61 @@
         font-size: 12px;
         margin-top: 10px;
         color: #777;
+        text-align: center;
+      }
+
+      @media (max-width: 500px) {
+        body {
+          padding: 10px;
+        }
+
+        .box {
+          padding: 15px;
+        }
+
+        h1 {
+          font-size: 20px;
+        }
       }
     </style>
   </head>
 
   <body>
-    <h1>Secure Payment</h1>
-
     <div class="box">
+      <h1>Secure Payment</h1>
+
       <p>Select Payment Method</p>
 
-      <!-- Payment Methods (names only as requested) -->
-      <div class="method">Bank Card</div>
-      <div class="method">MoMo</div>
+      <!-- Payment Methods -->
+      <div class="method" onclick="selectMethod(this)">Bank Card</div>
+      <div class="method" onclick="selectMethod(this)">MoMo</div>
 
       <button class="pay-btn" onclick="completePayment()">
         Complete Payment
       </button>
 
-      <p class="note">Demo payment page for ordering system</p>
+      <p class="note">Demo payment system for Hungry Lion ordering</p>
     </div>
 
     <script>
+      let selectedMethod = null;
+
+      function selectMethod(el) {
+        document.querySelectorAll(".method").forEach((m) => {
+          m.classList.remove("active");
+        });
+
+        el.classList.add("active");
+        selectedMethod = el.innerText;
+      }
+
       function completePayment() {
+        // optional check (still safe for demo)
+        if (!selectedMethod) {
+          alert("Please select a payment method");
+          return;
+        }
+
         window.location.href = "index.html?status=success";
       }
     </script>
