@@ -2,24 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
+    <!-- MOBILE RESPONSIVE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Hungry Lion Ordering</title>
 
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 12px;
         background: #fffaf0;
+        color: #222;
+      }
+
+      .container {
         max-width: 900px;
         margin: auto;
-        color: #222;
       }
 
       h1 {
         text-align: center;
-        font-size: 28px;
+        font-size: 30px;
         color: #d62828;
-        margin-bottom: 10px;
+        margin-bottom: 18px;
       }
 
       h2 {
@@ -29,52 +40,64 @@
       }
 
       /* =====================
-     BOXES
-  ====================== */
+         BOXES
+      ====================== */
       .box {
         background: #ffffff;
-        border-radius: 14px;
-        padding: 15px;
-        margin-top: 15px;
+        border-radius: 16px;
+        padding: 16px;
+        margin-top: 16px;
         border: 2px solid #fcbf49;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       }
 
       /* =====================
-     MENU ITEMS
-  ====================== */
-      .item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 10px;
-        background: #fff3e0;
+         MENU GRID
+      ====================== */
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 14px;
       }
 
-      .item span {
-        font-size: 14px;
-        flex: 1;
+      .item {
+        background: #fff3e0;
+        border-radius: 12px;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .item-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .price {
+        color: #d62828;
+        font-weight: bold;
+        margin-bottom: 12px;
       }
 
       /* =====================
-     BUTTONS
-  ====================== */
+         BUTTONS
+      ====================== */
       button {
-        padding: 10px 12px;
         border: none;
-        border-radius: 8px;
+        border-radius: 10px;
         cursor: pointer;
         font-weight: bold;
         transition: 0.2s;
-        white-space: nowrap;
       }
 
       .add-btn {
         background: #f77f00;
         color: white;
+        padding: 12px;
+        width: 100%;
+        font-size: 15px;
       }
 
       .add-btn:hover {
@@ -85,7 +108,9 @@
         width: 100%;
         background: #d62828;
         color: white;
+        padding: 14px;
         font-size: 16px;
+        margin-top: 10px;
       }
 
       .pay-btn:hover {
@@ -98,202 +123,293 @@
       }
 
       /* =====================
-     CART
-  ====================== */
+         CART
+      ====================== */
       #cartItems p {
         background: #fff3e0;
-        padding: 8px;
-        border-radius: 8px;
-        margin: 6px 0;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 8px 0;
         font-size: 14px;
       }
 
       .total {
-        font-size: 18px;
-        margin-top: 10px;
+        font-size: 20px;
+        margin-top: 12px;
         color: #d62828;
       }
 
       /* =====================
-     MOBILE OPTIMIZATION
-  ====================== */
+         CONFIRMATION
+      ====================== */
+      .green {
+        background: #d4edda;
+      }
+
+      /* =====================
+         MOBILE
+      ====================== */
       @media (max-width: 600px) {
         body {
           padding: 10px;
         }
 
         h1 {
-          font-size: 22px;
+          font-size: 24px;
         }
 
-        .item {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .item button {
-          width: 100%;
-          margin-top: 8px;
+        h2 {
+          font-size: 18px;
         }
 
         .box {
-          padding: 12px;
+          padding: 14px;
+          border-radius: 14px;
         }
 
-        button {
-          width: 100%;
+        .item-title {
+          font-size: 15px;
         }
 
+        .price {
+          font-size: 14px;
+        }
+
+        .add-btn,
         .pay-btn {
           font-size: 15px;
+          padding: 13px;
+        }
+
+        .total {
+          font-size: 18px;
+        }
+
+        #paymentSection {
+          position: sticky;
+          bottom: 10px;
+          z-index: 100;
         }
       }
     </style>
   </head>
 
   <body>
-    <h1>Hungry Lion Ordering</h1>
+    <div class="container">
+      <h1>Hungry Lion Ordering</h1>
 
-    <!-- MENU -->
-    <div class="box">
-      <h2>Menu</h2>
+      <!-- MENU -->
+      <div class="box">
+        <h2>Menu</h2>
 
-      <div class="item">
-        <span>2 Piece Chicken - E45</span>
-        <button class="add-btn" onclick="addToCart('2 Piece Chicken', 45)">
-          Add
-        </button>
+        <div class="menu-grid">
+          <div class="item">
+            <div>
+              <div class="item-title">2 Piece Chicken</div>
+              <div class="price">E45</div>
+            </div>
+
+            <button class="add-btn" onclick="addToCart('2 Piece Chicken', 45)">
+              Add to Cart
+            </button>
+          </div>
+
+          <div class="item">
+            <div>
+              <div class="item-title">Burger Meal</div>
+              <div class="price">E60</div>
+            </div>
+
+            <button class="add-btn" onclick="addToCart('Burger Meal', 60)">
+              Add to Cart
+            </button>
+          </div>
+
+          <div class="item">
+            <div>
+              <div class="item-title">Family Bucket</div>
+              <div class="price">E120</div>
+            </div>
+
+            <button class="add-btn" onclick="addToCart('Family Bucket', 120)">
+              Add to Cart
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div class="item">
-        <span>Burger Meal - E60</span>
-        <button class="add-btn" onclick="addToCart('Burger Meal', 60)">
-          Add
-        </button>
+      <!-- CART -->
+      <div class="box">
+        <h2>🛒 Cart</h2>
+
+        <div id="cartItems"></div>
+
+        <p class="total">
+          <strong>Total: E<span id="total">0</span></strong>
+        </p>
       </div>
 
-      <div class="item">
-        <span>Family Bucket - E120</span>
-        <button class="add-btn" onclick="addToCart('Family Bucket', 120)">
-          Add
+      <!-- PAYMENT -->
+      <div class="box" id="paymentSection" style="display: none">
+        <h2>💳 Checkout</h2>
+
+        <p>
+          Order ID:
+          <strong id="orderId"></strong>
+        </p>
+
+        <button class="pay-btn" onclick="goToPayment()">Pay Now</button>
+      </div>
+
+      <!-- CONFIRMATION -->
+      <div class="box green" id="confirmation" style="display: none">
+        <h2>✅ Payment Verified</h2>
+
+        <p>Your order is being prepared.</p>
+
+        <button
+          id="whatsappBtn"
+          class="pay-btn disabled"
+          disabled
+          onclick="openWhatsApp()"
+        >
+          Open WhatsApp
         </button>
       </div>
-    </div>
-
-    <!-- CART -->
-    <div class="box">
-      <h2>🛒 Cart</h2>
-      <div id="cartItems"></div>
-      <p class="total">
-        <strong>Total: E<span id="total">0</span></strong>
-      </p>
-    </div>
-
-    <!-- PAYMENT -->
-    <div class="box" id="paymentSection" style="display: none">
-      <h2>💳 Checkout</h2>
-      <p>Order ID: <strong id="orderId"></strong></p>
-      <button class="pay-btn" onclick="goToPayment()">Pay Now</button>
-    </div>
-
-    <!-- CONFIRMATION -->
-    <div class="box green" id="confirmation" style="display: none">
-      <h2>✅ Payment Verified</h2>
-      <p>Your order is being prepared.</p>
-      <button
-        id="whatsappBtn"
-        class="disabled"
-        disabled
-        onclick="openWhatsApp()"
-      >
-        Open WhatsApp
-      </button>
     </div>
 
     <script>
       let cart = [];
       let total = 0;
-      let orderId = "";
       let paid = false;
+
+      // PERSISTENT ORDER ID
+      let orderId = localStorage.getItem("orderId");
+
+      if (!orderId) {
+        orderId = "HL-" + Math.floor(Math.random() * 100000);
+        localStorage.setItem("orderId", orderId);
+      }
 
       window.onload = function () {
         const urlParams = new URLSearchParams(window.location.search);
+
         const status = urlParams.get("status");
 
-        orderId = "HL-" + Math.floor(Math.random() * 100000);
+        document.getElementById("orderId").innerText = orderId;
 
+        // Restore cart
+        const savedCart = localStorage.getItem("cart");
+
+        cart = savedCart ? JSON.parse(savedCart) : [];
+
+        calculateTotal();
+
+        updateCart();
+
+        // show payment section ONLY if not paid
+        if (cart.length > 0 && status !== "success") {
+          document.getElementById("paymentSection").style.display = "block";
+        }
+
+        // Payment success
         if (status === "success") {
-          const savedCart = localStorage.getItem("cart");
-          cart = savedCart ? JSON.parse(savedCart) : [];
-          calculateTotal();
-
           paid = true;
+
           document.getElementById("confirmation").style.display = "block";
 
           let btn = document.getElementById("whatsappBtn");
-          btn.disabled = false;
-          btn.classList.remove("disabled");
-        } else {
-          localStorage.removeItem("cart");
-          cart = [];
-          total = 0;
-        }
 
-        updateCart();
-        document.getElementById("orderId").innerText = orderId;
+          btn.disabled = false;
+
+          btn.classList.remove("disabled");
+        }
       };
 
+      // ADD TO CART
       function addToCart(name, price) {
         cart.push({ name, price });
+
         calculateTotal();
+
         saveData();
+
         updateCart();
 
         document.getElementById("paymentSection").style.display = "block";
       }
 
+      // CALCULATE TOTAL
       function calculateTotal() {
         total = cart.reduce((sum, item) => sum + item.price, 0);
       }
 
+      // UPDATE CART UI
       function updateCart() {
         let cartDiv = document.getElementById("cartItems");
+
         cartDiv.innerHTML = "";
+
+        if (cart.length === 0) {
+          cartDiv.innerHTML = "<p>No items added yet</p>";
+        }
 
         cart.forEach((item) => {
           let p = document.createElement("p");
+
           p.innerText = `${item.name} - E${item.price}`;
+
           cartDiv.appendChild(p);
         });
 
         document.getElementById("total").innerText = total;
       }
 
+      // SAVE CART
       function saveData() {
         localStorage.setItem("cart", JSON.stringify(cart));
       }
 
+      // PAYMENT PAGE
       function goToPayment() {
         saveData();
+
         window.location.href = "payment.html";
       }
 
+      // WHATSAPP
       function openWhatsApp() {
         if (!paid) return;
 
-        let items = encodeURIComponent(JSON.stringify(cart));
+        // encode items for print receipt
+        let encodedItems = encodeURIComponent(JSON.stringify(cart));
 
+        // print receipt URL
         let printUrl =
           `${window.location.origin}/print.html?orderId=${orderId}` +
-          `&total=${total}&items=${items}`;
+          `&total=${total}&items=${encodedItems}`;
 
+        // format items nicely for WhatsApp
+        let itemList = cart
+          .map((item) => `• ${item.name} - E${item.price}`)
+          .join("\n");
+
+        // whatsapp message
         let message = encodeURIComponent(
-          `Order ${orderId} PAID\nTotal: E${total}\nPrint: ${printUrl}`,
+          `🍗 Hungry Lion Order\n\n` +
+            `Order ID: ${orderId}\n\n` +
+            `📦 Items:\n${itemList}\n\n` +
+            `💰 Total: E${total}\n\n` +
+            `✅ Status: PAID\n\n` +
+            `🖨 Print Receipt:\n${printUrl}`,
         );
 
+        // open whatsapp
         window.open("https://wa.me/26876985039?text=" + message, "_blank");
 
-        localStorage.clear();
+        // clear storage
+        localStorage.removeItem("cart");
+        localStorage.removeItem("orderId");
       }
     </script>
   </body>
